@@ -1,0 +1,77 @@
+@startuml
+!include <C4/C4_Container>
+
+skinparam backgroundColor white
+skinparam componentStyle uml2
+skinparam defaultTextAlignment center
+skinparam noteTextAlignment left
+
+title <b>Reasoning Chain Architecture</b>
+title <i>Empowering Agents with Local-First Reasoning</i>
+
+rectangle "User Query" as query #LightSkyBlue {
+    [Research Topic/Question] #AliceBlue
+}
+
+node "Reasoning Chain" as server #LightGreen {
+    rectangle "Local Reasoning" as local_layer #PaleGreen {
+        component "DeepSeek" as deepseek #MintCream {
+            [Parse & Structure]
+            [Extract Logic]
+        }
+        database "Context" as context #WhiteSmoke {
+            [Reasoning Steps]
+        }
+    }
+
+    rectangle "Enhanced Response" as response_layer #LightYellow {
+        component "Claude 3" as claude #Wheat {
+            [Generate Response]
+        }
+    }
+}
+
+rectangle "Reasoning-Powered Agents" as agents #LightPink {
+    [Task Analysis] #Pink
+    [Domain Research] #Pink
+    [Decision Making] #Pink
+}
+
+cloud "UI" as ui #LightGray
+
+' Clean flow arrows
+query -down-> deepseek : "1. Query"
+deepseek -right-> context : "2. Reasoning"
+context -down-> claude : "3. Context"
+claude -right-> agents : "4. Response"
+agents -up-> ui : "5. Results"
+
+note right of deepseek #PaleGreen
+  <b>Local Processing</b>
+  • Fast reasoning extraction
+  • Structured analysis
+end note
+
+note right of claude #LightYellow
+  <b>Cloud Enhancement</b>
+  • Uses reasoning context
+  • High-quality synthesis
+end note
+
+note bottom of agents #MistyRose
+  <b>Novel Agent Architecture</b>
+  • Local-first reasoning reduces cloud dependency
+  • Hybrid approach combines speed and power
+  • Cost-effective decision making
+  • Scalable for multiple domains
+end note
+
+legend right
+  <b>Key Innovation</b>
+  This architecture enables agents to perform complex
+  reasoning tasks by leveraging local models for initial
+  analysis, reducing dependency on expensive cloud APIs
+  while maintaining high-quality outputs.
+end legend
+
+@enduml 

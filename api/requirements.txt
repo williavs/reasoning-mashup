@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+python-dotenv
+openai>=1.3.0
+pydantic>=2.4.2
+httpx>=0.25.0
+mitmproxy>=10.1.1
+certifi>=2023.7.22
+duckduckgo-search
+praisonaiagents
+ollama>=0.1.6
+
