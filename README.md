@@ -7,11 +7,15 @@ A multi-agent system combining multiple LLMs for enhanced reasoning and analysis
 ![Reasoning Chain Architecture](architecture.png)
 
 The system implements a novel reasoning chain that:
-- Uses local models (DeepSeek via Ollama) for initial reasoning extraction
+- Uses local models Reasoning Models (Currently set to 8b becuase of my Macbok, but crank it if you can!) for initial reasoning extraction
 - Stores structured reasoning in a context layer
-- Enhances responses using powerful cloud models (Claude 3 via OpenRouter)
-- Powers multiple specialized agent workflows
-- Reduces cloud API dependency while maintaining quality
+- Joins User Query with Reasoning Output and send to SOTA Model (Currently set to Claude 3.5 Sonnet, but any OpenRouter/Local Model can be used as the response LLM, Repo includes 2 API's)
+- Reasoning Mashup API's can power specialized agent workflows.
+
+Suggestions for improvements:
+    -create hash on original reasoning output, Cache initial resoning output instead of reasoning on every inference. 
+    
+
 
 Key components:
 ```
@@ -31,8 +35,8 @@ Key components:
 
 ### Prerequisites
 - Python 3.10+
-- OpenRouter API key (for Claude 3 access)
-- Ollama with DeepSeek-R1:8b model installed
+- OpenRouter API key 
+- Ollama with DeepSeek-R1:8b, Phi4 model pulled
 
 ### Installation
 
@@ -94,8 +98,8 @@ honcho start
 ```
 
 This will start:
-- OpenRouter proxy server on port 8000 (for Claude 3)
-- Ollama proxy server on port 8001 (for DeepSeek)
+- OpenRouter proxy server on port 8000
+- Ollama proxy server on port 8001 
 - Streamlit frontend
 
 You can also start services individually:
@@ -147,7 +151,9 @@ class ProxyMonitoring:
 
 ### ProxyAPI Integration
 
-All workflows use a common ProxyAPI pattern for LLM interactions:
+All workflows use a common ProxyAPI pattern for LLM interactions. 
+
+(Use this to build new agentic workflows that use the Reasoning Mashup API's, this is how I was toggling between servers/agent workflows in Streamlit)
 
 ```python
 class ProxyAPITool:
@@ -171,6 +177,7 @@ Features:
 - Debug output toggle
 - Example topics/companies
 - Markdown result formatting
+- Stupid simple app that breaks and doesnt have good session state menegement, I didnt put a lot of effort into fiddlng with strealmit on this, its more about the backend, UI was basically just used to test everything.
 
 ## Development
 
@@ -215,5 +222,5 @@ LOGLEVEL=debug  # Options: debug, info, warning, error
 
 ## License
 
-[Your License]
+MIT
 
